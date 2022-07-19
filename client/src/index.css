@@ -1,0 +1,21 @@
+main {
+  min-height: 80vh;
+}
+
+.navbar-logo {
+  height: 50px;
+  margin-right: 20px;
+  padding-bottom: 3px;
+}
+
+.icons {
+  margin-right: 10px;
+}
+
+.rating span {
+  margin: 0.1rem;
+}
+
+h3 {
+  padding: 1rem 0;
+}

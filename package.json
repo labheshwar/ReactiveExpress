@@ -1,0 +1,30 @@
+{
+  "name": "reacive-express",
+  "version": "1.0.0",
+  "description": "E-Commerce Website build using MERN Stack Technologies",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/server",
+    "server": "nodemon server/server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/labheshwar/ReactiveExpress.git"
+  },
+  "author": "Labheshwar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/labheshwar/ReactiveExpress/issues"
+  },
+  "homepage": "https://github.com/labheshwar/ReactiveExpress#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "concurrently": "^7.3.0"
+  }
+}

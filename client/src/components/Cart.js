@@ -17,7 +17,7 @@ import {
 } from 'react-bootstrap';
 
 import Message from './Message';
-import { addToCart } from '../redux/actions/cart';
+import { addToCart, removeFromCart } from '../redux/actions/cart';
 
 const Cart = () => {
   const [searchParams] = useSearchParams();
@@ -37,8 +37,8 @@ const Cart = () => {
     }
   }, [dispatch, navigate, productId, qty]);
 
-  const removeFromCartHandler = (productId) => {
-    console.log(productId);
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
   };
 
   const checkoutHandler = () => {

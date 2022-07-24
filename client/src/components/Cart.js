@@ -51,7 +51,10 @@ const Cart = () => {
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <Message>
-            Your cart is empty. <Link to='/'>Go Back</Link>
+            Your cart is empty.{' '}
+            <Link className='link' to='/'>
+              Go Back
+            </Link>
           </Message>
         ) : (
           <ListGroup variant='flush'>
@@ -64,9 +67,7 @@ const Cart = () => {
                   <Col md={3}>
                     <Link
                       to={`/product/${item.product}`}
-                      style={{
-                        textDecoration: 'none',
-                      }}
+                      className='link theme-color'
                     >
                       {item.name}
                     </Link>
@@ -123,6 +124,7 @@ const Cart = () => {
             </ListGroup.Item>
             <ListGroup.Item>
               <Button
+                variant='dark'
                 type='button'
                 style={{ width: '100%' }}
                 disabled={cartItems.length === 0}

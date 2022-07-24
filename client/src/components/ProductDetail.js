@@ -31,7 +31,7 @@ const ProductDetail = () => {
 
   return (
     <>
-      <Link className='btn btn-dark my-3' to='/'>
+      <Link className='btn btn-dark my-3 link' to='/'>
         Go Back
       </Link>
       {loading ? (
@@ -110,6 +110,7 @@ const ProductDetail = () => {
                     onClick={() => navigate(`/cart/${id}?qty=${qty}`)}
                     style={{ width: '100%' }}
                     type='button'
+                    variant='dark'
                     disabled={!product.countInStock}
                   >
                     Add To Cart

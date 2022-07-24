@@ -7,7 +7,7 @@ const Footer = () => {
       <Container>
         <Row>
           <Col className='text-center py-3'>
-            <p>&copy; Reactive Express 2022</p>
+            <p className='theme-color'>&copy; Reactive Express 2022</p>
           </Col>
         </Row>
       </Container>

@@ -67,7 +67,7 @@ const Cart = () => {
                   <Col md={3}>
                     <Link
                       to={`/product/${item.product}`}
-                      className='link theme-color'
+                      className='link theme-color on-hover'
                     >
                       {item.name}
                     </Link>

@@ -37,3 +37,12 @@ h2 {
 .theme-color {
   color: rgb(154, 26, 63);
 }
+
+.on-hover:hover {
+  font-weight: 500;
+  color: rgb(154, 26, 63);
+}
+
+.btn-block {
+  width: 100%;
+}

@@ -18,11 +18,14 @@ const Login = ({ location }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
 
-  const redirect = searchParams.get('redirect') || '/';
+  const redirect = searchParams.get('redirect')
+    ? searchParams.get('redirect')
+    : '';
 
   React.useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
+      console.log(redirect);
+      navigate(`/${redirect}`);
     }
   }, [navigate, userInfo, redirect]);
   const submitHandler = (e) => {

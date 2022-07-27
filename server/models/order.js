@@ -64,7 +64,7 @@ const orderSchema = mongoose.Schema({
     status: {
       type: String,
     },
-    update_tiem: {
+    update_time: {
       type: String,
     },
     email_address: {

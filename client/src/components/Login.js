@@ -24,7 +24,6 @@ const Login = ({ location }) => {
 
   React.useEffect(() => {
     if (userInfo) {
-      console.log(redirect);
       navigate(`/${redirect}`);
     }
   }, [navigate, userInfo, redirect]);

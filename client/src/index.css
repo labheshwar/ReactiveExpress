@@ -9,7 +9,7 @@ main {
 }
 
 .icons {
-  margin-right: 10px;
+  margin-right: 0.5vw;
 }
 
 .rating span {
@@ -45,4 +45,12 @@ h2 {
 
 .btn-block {
   width: 100%;
+}
+
+header {
+  background-color: rgb(154, 26, 63);
+}
+
+.nav-item {
+  margin-right: 1vw;
 }

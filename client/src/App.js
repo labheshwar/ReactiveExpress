@@ -13,6 +13,8 @@ import Shipping from './components/Shipping';
 import Payment from './components/Payment';
 import PlaceOrder from './components/PlaceOrder';
 import Order from './components/Order';
+import UserList from './components/UserList';
+import UserEdit from './components/UserEdit';
 
 const App = () => {
   return (
@@ -30,6 +32,8 @@ const App = () => {
             <Route path='/payment' element={<Payment />} />
             <Route path='/placeorder' element={<PlaceOrder />} />
             <Route path='/order/:id' element={<Order />} />
+            <Route path='/admin/userlist' element={<UserList />} />
+            <Route path='/admin/user/:id/edit' element={<UserEdit />} />
 
             <Route path='/cart' element={<Cart />} />
             <Route path='/cart/:id' element={<Cart />} />

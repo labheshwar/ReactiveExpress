@@ -15,7 +15,7 @@ const Header = () => {
   };
   return (
     <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar variant='dark' expand='lg' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>
@@ -31,13 +31,17 @@ const Header = () => {
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>
               <LinkContainer to='/cart'>
-                <Nav.Link>
+                <Nav.Link className='nav-item'>
                   <i className='icons fas fa-shopping-cart'></i>
                   Cart
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
-                <NavDropdown title={userInfo.name} id='username'>
+                <NavDropdown
+                  className='nav-item'
+                  title={userInfo.name}
+                  id='username'
+                >
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item className>Profile</NavDropdown.Item>
                   </LinkContainer>
@@ -46,12 +50,25 @@ const Header = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <LinkContainer to='/login'>
+                <LinkContainer className='nav-item' to='/login'>
                   <Nav.Link>
                     <i className='icons fas fa-user'></i>
                     Login
                   </Nav.Link>
                 </LinkContainer>
+              )}
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown className='nav-item' title='Admin' id='username'>
+                  <LinkContainer to='/admin/userlist'>
+                    <NavDropdown.Item className>Users</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/productlist'>
+                    <NavDropdown.Item className>Products</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderlist'>
+                    <NavDropdown.Item className>Orders</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>

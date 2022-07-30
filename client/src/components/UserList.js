@@ -37,7 +37,7 @@ const UserList = () => {
 
   return (
     <>
-      <h1>Users</h1>
+      <h1 className='theme-color'>Users</h1>
       {loading ? (
         <Loader />
       ) : error ? (

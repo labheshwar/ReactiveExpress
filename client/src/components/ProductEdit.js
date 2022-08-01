@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
@@ -17,6 +18,7 @@ const ProductEdit = () => {
   const [category, setCategory] = React.useState('');
   const [countInStock, setCountInStock] = React.useState(0);
   const [description, setDescription] = React.useState('');
+  const [uploading, setUploading] = React.useState(false);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -70,6 +72,29 @@ const ProductEdit = () => {
     );
   };
 
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+
+    formData.append('image', file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+
+      const { data } = await axios.post('/api/upload', formData, config);
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.log(error);
+      setUploading(false);
+    }
+  };
+
   return (
     <>
       <Link to='/admin/productlist' className='btn btn-primary my-3'>
@@ -113,6 +138,13 @@ const ProductEdit = () => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
+              <Form.File
+                id='image-file'
+                label='Choose Image'
+                custom
+                onChange={uploadFileHandler}
+              ></Form.File>
+              {uploading && <Loader />}
             </Form.Group>
 
             <Form.Group controlId='brand'>

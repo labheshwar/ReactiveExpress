@@ -13,6 +13,7 @@ import Shipping from './components/Shipping';
 import Payment from './components/Payment';
 import PlaceOrder from './components/PlaceOrder';
 import Order from './components/Order';
+import OrderList from './components/OrderList';
 import UserList from './components/UserList';
 import UserEdit from './components/UserEdit';
 import ProductList from './components/ProductList';
@@ -34,6 +35,7 @@ const App = () => {
             <Route path='/payment' element={<Payment />} />
             <Route path='/placeorder' element={<PlaceOrder />} />
             <Route path='/order/:id' element={<Order />} />
+            <Route path='/admin/orderlist' element={<OrderList />} />
             <Route path='/admin/userlist' element={<UserList />} />
             <Route path='/admin/productlist' element={<ProductList />} />
             <Route path='/admin/user/:id/edit' element={<UserEdit />} />

@@ -69,7 +69,15 @@ const Order = () => {
     }
 
     addPayPalScript();
-  }, [dispatch, orderId, order, successPay, successDeliver]);
+  }, [
+    dispatch,
+    orderId,
+    order,
+    successPay,
+    successDeliver,
+    userInfo,
+    navigate,
+  ]);
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);

@@ -78,3 +78,20 @@ export const updateProduct = asyncHandler(async (req, res) => {
     throw new Error('Product not found');
   }
 });
+
+// Create New Review - Route: POST - /api/product/:id/reviews - PRIVATE
+
+export const createProductReview = asyncHandler(async (req, res) => {
+  const { rating, comment } = req.body;
+
+  const product = await Product.findById(req.params.id);
+
+  if (product) {
+    const alreadyReviewed = product.reviews.find((review) => {
+      return review.user.toString() === req.user._id.toString();
+    });
+  } else {
+    res.status(404);
+    throw new Error('Product not found');
+  }
+});

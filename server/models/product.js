@@ -13,6 +13,11 @@ const reviewSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId, // reference to user
+    required: true,
+    ref: 'User',
+  },
   createdAt: {
     type: Date,
     default: Date.now,

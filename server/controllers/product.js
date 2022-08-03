@@ -79,7 +79,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
   }
 });
 
-// Create New Review - Route: POST - /api/product/:id/reviews - PRIVATE
+// Create New Review - Route: POST - /api/product/:id/review - PRIVATE
 
 export const createProductReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
@@ -89,6 +89,29 @@ export const createProductReview = asyncHandler(async (req, res) => {
   if (product) {
     const alreadyReviewed = product.reviews.find((review) => {
       return review.user.toString() === req.user._id.toString();
+    });
+
+    if (alreadyReviewed) {
+      res.status(400);
+      throw new Error('You have already reviewed this product');
+    }
+
+    const review = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    };
+
+    product.reviews.push(review);
+    product.numReviews = product.reviews.length;
+    product.rating =
+      product.reviews.reduce((acc, review) => acc + review.rating, 0) /
+      product.numReviews;
+
+    await product.save();
+    res.status(201).json({
+      message: 'Review created successfully',
     });
   } else {
     res.status(404);

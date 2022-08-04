@@ -14,6 +14,7 @@ import {
 import Rating from './Rating';
 import Loader from './Loader';
 import Message from './Message';
+import MetaData from './MetaData';
 import {
   listProductDetails,
   createProductReview,
@@ -75,6 +76,7 @@ const ProductDetail = () => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
+          <MetaData title={product.name} />
           <Row>
             <Col md={6}>
               <Image src={product.image} alt={product.name} fluid />

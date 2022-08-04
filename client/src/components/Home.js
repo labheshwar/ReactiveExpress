@@ -1,9 +1,11 @@
 import React from 'react';
+import MetaData from './MetaData';
 import { Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import Product from './Product';
+import ProductCarousel from './ProductCarousel';
 import Loader from './Loader';
 import Message from './Message';
 import Paginate from './Paginate';
@@ -23,6 +25,14 @@ const Home = () => {
 
   return (
     <>
+      <MetaData />
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to='/' className='btn btn-dark'>
+          Back to Home
+        </Link>
+      )}
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />

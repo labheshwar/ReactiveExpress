@@ -2,6 +2,9 @@ import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_FAILURE,
+  PRODUCT_LIST_TOP_RATED_REQUEST,
+  PRODUCT_LIST_TOP_RATED_SUCCESS,
+  PRODUCT_LIST_TOP_RATED_FAILURE,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAILURE,
@@ -174,3 +177,24 @@ export const createProductReview =
       });
     }
   };
+
+export const listTopRatedProducts = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: PRODUCT_LIST_TOP_RATED_REQUEST,
+    });
+    const { data } = await axios.get(`/api/products/top`);
+    dispatch({
+      type: PRODUCT_LIST_TOP_RATED_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_LIST_TOP_RATED_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

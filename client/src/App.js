@@ -27,6 +27,12 @@ const App = () => {
         <Container>
           <Routes>
             <Route path='/search/:keyword' element={<Home />} exact />
+            <Route
+              path='/search/:keyword/page/:pageNumber'
+              element={<Home />}
+              exact
+            />
+            <Route path='/page/:pageNumber' element={<Home />} exact />
             <Route path='/' element={<Home />} />
             <Route path='/product/:id' element={<ProductDetail />} />
             <Route path='/login' element={<Login />} />
@@ -38,7 +44,12 @@ const App = () => {
             <Route path='/order/:id' element={<Order />} />
             <Route path='/admin/orderlist' element={<OrderList />} />
             <Route path='/admin/userlist' element={<UserList />} />
-            <Route path='/admin/productlist' element={<ProductList />} />
+            <Route path='/admin/productlist' element={<ProductList />} exact />
+            <Route
+              path='/admin/productlist/:pageNumber'
+              element={<ProductList />}
+              exact
+            />
             <Route path='/admin/user/:id/edit' element={<UserEdit />} />
             <Route path='/admin/product/:id/edit' element={<ProductEdit />} />
 

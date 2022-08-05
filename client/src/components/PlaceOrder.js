@@ -6,12 +6,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from './Message';
 import CheckoutSteps from './CheckoutSteps';
 import { createOrder } from '../redux/actions/order';
+import { ORDER_CREATE_RESET } from '../redux/constants/order';
+import { USER_DETAILS_RESET } from '../redux/constants/user';
 
 const PlaceOrder = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
+
+  if (!cart.shippingAddress.address) {
+    navigate('/shipping');
+  } else if (!cart.paymentMethod) {
+    navigate('/payment');
+  }
 
   cart.itemsPrice = cart.cartItems
     .reduce((acc, item) => acc + Number(item.qty) * Number(item.price), 0)
@@ -27,6 +35,8 @@ const PlaceOrder = () => {
   React.useEffect(() => {
     if (success) {
       navigate(`/order/${order._id}`);
+      dispatch({ type: USER_DETAILS_RESET });
+      dispatch({ type: ORDER_CREATE_RESET });
     }
     // eslint-disable-next-line
   }, [success, navigate]);

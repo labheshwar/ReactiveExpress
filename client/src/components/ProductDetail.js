@@ -38,17 +38,22 @@ const ProductDetail = () => {
   const { userInfo } = userLogin;
 
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
-  const { success: successProductReview, error: errorProductReview } =
-    productReviewCreate;
+  const {
+    success: successProductReview,
+    loading: loadingProductReview,
+    error: errorProductReview,
+  } = productReviewCreate;
 
   React.useEffect(() => {
     if (errorProductReview) {
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
     if (successProductReview) {
-      alert('Review Submitted');
       setRating(0);
       setComment('');
+    }
+    if (!product._id || product._id !== id) {
+      dispatch(listProductDetails(id));
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
     dispatch(listProductDetails(id));
@@ -175,6 +180,12 @@ const ProductDetail = () => {
                 ))}
                 <ListGroup.Item>
                   <h2>Write a Review</h2>
+                  {successProductReview && (
+                    <Message variant='success'>
+                      Review submitted successfully
+                    </Message>
+                  )}
+                  {loadingProductReview && <Loader />}
                   {errorProductReview && (
                     <Message variant='danger'>{errorProductReview}</Message>
                   )}
@@ -204,7 +215,12 @@ const ProductDetail = () => {
                           onChange={(e) => setComment(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
-                      <Button className='my-3' type='submit' variant='dark'>
+                      <Button
+                        className='my-3'
+                        disabled={loadingProductReview}
+                        type='submit'
+                        variant='dark'
+                      >
                         Submit
                       </Button>
                     </Form>

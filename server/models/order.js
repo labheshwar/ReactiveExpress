@@ -17,6 +17,10 @@ const orderItemsSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  countInStock: {
+    type: Number,
+    required: true,
+  },
   product: {
     type: mongoose.Schema.Types.ObjectId, // reference to product
     required: true,
@@ -53,18 +57,11 @@ const orderSchema = mongoose.Schema({
       required: true,
     },
   },
-  paymentMethod: {
-    type: String,
-    required: true,
-  },
   paymentResult: {
     id: {
       type: String,
     },
     status: {
-      type: String,
-    },
-    update_time: {
       type: String,
     },
     email_address: {

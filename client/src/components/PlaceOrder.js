@@ -17,8 +17,6 @@ const PlaceOrder = () => {
 
   if (!cart.shippingAddress.address) {
     navigate('/shipping');
-  } else if (!cart.paymentMethod) {
-    navigate('/payment');
   }
 
   cart.itemsPrice = cart.cartItems
@@ -46,7 +44,6 @@ const PlaceOrder = () => {
       createOrder({
         orderItems: cart.cartItems,
         shippingAddress: cart.shippingAddress,
-        paymentMethod: cart.paymentMethod,
         itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
@@ -67,13 +64,6 @@ const PlaceOrder = () => {
                 {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
                 {cart.shippingAddress.postalCode},{' '}
                 {cart.shippingAddress.country}
-              </p>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <h2>Payment Method</h2>
-              <p>
-                <strong>Method: </strong>
-                {cart.paymentMethod}
               </p>
             </ListGroup.Item>
             <ListGroup.Item>

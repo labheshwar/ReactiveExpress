@@ -1,6 +1,5 @@
 import React from 'react';
-import axios from 'axios';
-import { PayPalButton } from 'react-paypal-button-v2';
+import StripeCheckout from 'react-stripe-checkout';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,8 +14,6 @@ import {
 import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../redux/constants/order';
 
 const Order = () => {
-  const [sdkReady, setSdkReady] = React.useState(false);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const orderId = useParams().id;
@@ -28,7 +25,11 @@ const Order = () => {
   const { error, loading, order } = orderDetails;
 
   const orderPay = useSelector((state) => state.orderPay);
-  const { loading: loadingPay, success: successPay } = orderPay;
+  const {
+    loading: loadingPay,
+    success: successPay,
+    error: errorPay,
+  } = orderPay;
 
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
@@ -44,31 +45,11 @@ const Order = () => {
       navigate('/login');
     }
 
-    const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get('/api/config/paypal');
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-      script.async = true;
-      script.onload = () => {
-        setSdkReady(true);
-      };
-      document.body.appendChild(script);
-    };
-
     if (!order || successPay || successDeliver || order._id !== orderId) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(getOrderDetails(orderId));
-    } else if (!order.isPaid) {
-      if (!window.paypal) {
-        addPayPalScript();
-      } else {
-        setSdkReady(true);
-      }
     }
-
-    addPayPalScript();
   }, [
     dispatch,
     orderId,
@@ -79,9 +60,8 @@ const Order = () => {
     navigate,
   ]);
 
-  const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
-    dispatch(payOrder(orderId, paymentResult));
+  const tokenHandler = (token) => {
+    dispatch(payOrder(orderId, token));
   };
 
   const deliverHandler = () => {
@@ -204,19 +184,29 @@ const Order = () => {
                   <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {!order.isPaid && (
-                <ListGroup.Item>
-                  {loadingPay && <Loader />}
-                  {!sdkReady ? (
-                    <Loader />
-                  ) : (
-                    <PayPalButton
-                      amount={order.totalPrice}
-                      onSuccess={successPaymentHandler}
-                    />
-                  )}
-                </ListGroup.Item>
-              )}
+              {errorPay && <Message variant='danger'>{errorPay}</Message>}
+              {!order.isPaid &&
+                (!userInfo.isAdmin ? (
+                  <ListGroup.Item>
+                    {loadingPay && <Loader />}
+                    {!loadingPay && (
+                      <StripeCheckout
+                        amount={order.totalPrice * 100}
+                        currency='USD'
+                        token={tokenHandler}
+                        stripeKey={process.env.REACT_APP_STRIPE_KEY}
+                      >
+                        <Button variant='dark' className='btn-block'>
+                          Pay with Card
+                        </Button>
+                      </StripeCheckout>
+                    )}
+                  </ListGroup.Item>
+                ) : (
+                  <Button variant='dark' className='btn-block' disabled>
+                    Not Paid
+                  </Button>
+                ))}
               {loadingDeliver && <Loader />}
               {userInfo &&
                 userInfo.isAdmin &&

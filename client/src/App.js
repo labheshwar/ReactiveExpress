@@ -10,7 +10,6 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
 import Shipping from './components/Shipping';
-import Payment from './components/Payment';
 import PlaceOrder from './components/PlaceOrder';
 import Order from './components/Order';
 import OrderList from './components/OrderList';
@@ -39,7 +38,6 @@ const App = () => {
             <Route path='/register' element={<Register />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/shipping' element={<Shipping />} />
-            <Route path='/payment' element={<Payment />} />
             <Route path='/placeorder' element={<PlaceOrder />} />
             <Route path='/order/:id' element={<Order />} />
             <Route path='/admin/orderlist' element={<OrderList />} />

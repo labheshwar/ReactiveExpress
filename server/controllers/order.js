@@ -3,12 +3,11 @@ import Order from '../models/order.js';
 import Product from '../models/product.js';
 import { v4 as uuidv4 } from 'uuid';
 import Stripe from 'stripe';
-const stripe = new Stripe(
-  'sk_test_51LSHSACD8SCdQJ2EED4Sap2flmrk16dr4gou4wJSaGBr3sD8zaFOp9GvIiv1XMoWskmK1M2zLghy7fBL3kPuuN4N00JXXkcRil',
-  {
-    apiVersion: '2022-08-01',
-  }
-);
+import dotenv from 'dotenv';
+dotenv.config();
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2022-08-01',
+});
 
 // Create new order - Route: POST - /api/orders - PRIVATE
 

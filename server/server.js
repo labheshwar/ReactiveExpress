@@ -21,21 +21,27 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
 app.use('/api', productRoutes);
 app.use('/api', userRoutes);
 app.use('/api', orderRoutes);
 app.use('/api/upload', uploadRoutes);
+app.get('/api/stripe/pk', (req, res) =>
+  res.send(process.env.STRIPE_PRIMARY_KEY)
+);
 
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
-app.get('/api/stripe/pk', (req, res) =>
-  res.send(process.env.STRIPE_PRIMARY_KEY)
-);
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/client/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.send('Hello World!');
+  });
+}
 
 app.use(notFound);
 app.use(errorHandler);

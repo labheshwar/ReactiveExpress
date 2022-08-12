@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
@@ -17,6 +18,7 @@ const Order = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const orderId = useParams().id;
+  let stripe_pk = React.useRef('');
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -41,6 +43,13 @@ const Order = () => {
   }
 
   React.useEffect(() => {
+    const fetchStripeKey = async () => {
+      const { data } = await axios.get('/api/stripe/pk');
+      stripe_pk.current = data;
+    };
+
+    fetchStripeKey();
+
     if (!userInfo) {
       navigate('/login');
     }
@@ -191,12 +200,12 @@ const Order = () => {
                 (!userInfo.isAdmin ? (
                   <ListGroup.Item>
                     {loadingPay && <Loader />}
-                    {!loadingPay && (
+                    {stripe_pk && (
                       <StripeCheckout
                         amount={order.totalPrice * 100}
                         currency='USD'
                         token={tokenHandler}
-                        stripeKey={process.env.REACT_APP_STRIPE_KEY}
+                        stripeKey={stripe_pk.current}
                       >
                         <Button variant='dark' className='btn-block'>
                           Pay with Card

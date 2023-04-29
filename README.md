@@ -2,7 +2,7 @@
 
 I believe MERN Stack is capable of building ANY Web Application that you can think of, which I proved in this project. The project was assigned to me at the end of MERN Stack Apprenticeship at Slim Coder. This being my first PROPER MERN Stack application, was quite exciting, challenging, joyful and fun building.
 
-**The Project is hosted at:** <https://reactivexpress.herokuapp.com/>
+**The Project is hosted at:** <https://reactive-express.vercel.app/>
 
 ## Features
 

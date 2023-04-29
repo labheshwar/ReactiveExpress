@@ -17,8 +17,8 @@ I believe MERN Stack is capable of building ANY Web Application that you can thi
 - Admins can see, edit and delete any user.
 - Admins can mark orders as delivered (only after they are paid).
 - You can use dummy admin account to check admin authorized pages; 
-    email: `test@admin.com`
-    password: `admin`
+    - email: `test@admin.com`
+    - password: `admin`
 
 ### Tools and Technologies used
 
